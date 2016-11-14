@@ -1,0 +1,12 @@
+{% extends "shop_app/_base.html" %}
+{% block content %}
+    <h1>Welcome to the BestShop!</h1>
+
+    <form action="{% url 'index' %}" method="GET">
+{#        {% csrf_token %}#}
+        <input type="submit" value="Test" />
+    </form>
+
+{% endblock %}
+
+

@@ -1,0 +1,86 @@
+[
+  {
+    "model": "shop_app.Brand",
+    "pk": 1,
+    "fields": {
+      "brands": "Nike"
+    }
+  },
+  {
+    "model": "shop_app.Brand",
+    "pk": 2,
+    "fields": {
+      "brands": "Adidas Originals"
+    }
+  },
+  {
+    "model": "shop_app.Brand",
+    "pk": 3,
+    "fields": {
+      "brands": "ASICS"
+    }
+  },
+    {
+    "model": "shop_app.Brand",
+    "pk": 4,
+    "fields": {
+      "brands": "Barbour"
+    }
+  },
+  {
+    "model": "shop_app.Brand",
+    "pk": 5,
+    "fields": {
+      "brands": "Fjallraven"
+    }
+  },
+  {
+    "model": "shop_app.Brand",
+    "pk": 6,
+    "fields": {
+      "brands": "The North Face"
+    }
+  },
+  {
+    "model": "shop_app.OptionsGroups",
+    "pk": 1,
+    "fields": {
+      "option_group_name": "color"
+    }
+  },
+  {
+    "model": "shop_app.OptionsGroups",
+    "pk": 2,
+    "fields": {
+      "option_group_name": "size"
+    }
+  },
+    {
+    "model": "shop_app.Category",
+    "pk": 1,
+    "fields": {
+      "category_name": "Outwear"
+    }
+  },
+  {
+    "model": "shop_app.Category",
+    "pk": 2,
+    "fields": {
+      "category_name": "Footwear"
+    }
+  },
+  {
+    "model": "shop_app.Category",
+    "pk": 3,
+    "fields": {
+      "category_name": "Clothing"
+    }
+  },
+  {
+    "model": "shop_app.Category",
+    "pk": 4,
+    "fields": {
+      "category_name": "Accessories"
+    }
+  },
+]
