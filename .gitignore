@@ -1,0 +1,16 @@
+# ignore txt files
+*.txt
+*.DS_Store
+**/__pycache__/
+**/.idea/
+
+*.sqlite3
+**/env/
+**/node_modules/
+**/bower_components/
+
+# except needed files
+!requirements.txt
+!bower.json
+!package.json
+!initial.json
