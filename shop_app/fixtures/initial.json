@@ -3,42 +3,42 @@
     "model": "shop_app.Brand",
     "pk": 1,
     "fields": {
-      "brands": "Nike"
+      "brand_name": "Nike"
     }
   },
   {
     "model": "shop_app.Brand",
     "pk": 2,
     "fields": {
-      "brands": "Adidas Originals"
+      "brand_name": "Adidas Originals"
     }
   },
   {
     "model": "shop_app.Brand",
     "pk": 3,
     "fields": {
-      "brands": "ASICS"
+      "brand_name": "ASICS"
     }
   },
     {
     "model": "shop_app.Brand",
     "pk": 4,
     "fields": {
-      "brands": "Barbour"
+      "brand_name": "Barbour"
     }
   },
   {
     "model": "shop_app.Brand",
     "pk": 5,
     "fields": {
-      "brands": "Fjallraven"
+      "brand_name": "Fjallraven"
     }
   },
   {
     "model": "shop_app.Brand",
     "pk": 6,
     "fields": {
-      "brands": "The North Face"
+      "brand_name": "The North Face"
     }
   },
   {

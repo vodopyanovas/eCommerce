@@ -1,0 +1,41 @@
+{% extends "shop_app/_base.html" %}
+{% block content %}
+    <h1>Products attributes adding</h1>
+
+    <a href="{% url 'index' %}">Back</a>
+
+    <form name="category-add" action="{% url 'attributes' %}" method="POST">
+        {% csrf_token %}
+        <h2>Add category</h2>
+        {{ category.as_p }}
+        <input type="submit" value="Add" />
+        <hr />
+    </form>
+
+     <form name="brand-add" action="{% url 'attributes' %}" method="POST">
+        {% csrf_token %}
+        <h2>Add brand</h2>
+        {{ brand.as_p }}
+        <input type="submit" value="Add" />
+        <hr />
+    </form>
+
+    <form name="options-add" action="{% url 'attributes' %}" method="POST">
+        {% csrf_token %}
+        <h2>Add option</h2>
+        {{ options.as_p }}
+        <input type="submit" value="Add" />
+        <hr />
+    </form>
+
+    <form name="options-groups-add" action="{% url 'attributes' %}" method="POST">
+        {% csrf_token %}
+        <h2>Add option group</h2>
+        {{ options_groups.as_p }}
+        <input type="submit" value="Add" />
+        <hr />
+    </form>
+
+{% endblock %}
+
+
