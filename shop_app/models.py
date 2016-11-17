@@ -39,15 +39,15 @@ class Brand(models.Model):
 
 class Product(models.Model):
     SKU = models.CharField(max_length=50)
-    vendor_id = models.CharField(max_length=50, blank=True)
+    vendor_id = models.CharField(max_length=50, blank=True, default='')
     brand = models.ForeignKey('Brand')
     category_id = models.ForeignKey('Category')
     product_name = models.CharField(max_length=100)
     product_description_short = models.CharField(max_length=600)
-    product_description_long = models.TextField(blank=True)
+    product_description_long = models.TextField(blank=True, default='')
     unit_price = models.DecimalField(max_digits=9, decimal_places=2)
     discount = models.DecimalField(max_digits=3, decimal_places=2, default=1.0,)
-    product_weight = models.DecimalField(max_digits=6, decimal_places=3, blank=True)
+    product_weight = models.DecimalField(max_digits=6, decimal_places=3, blank=True, default=0)
     product_stock = models.PositiveSmallIntegerField(default=0)
     products_ordered = models.PositiveSmallIntegerField(default=0)
     product_available = models.BooleanField(default=True)
