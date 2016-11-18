@@ -1,0 +1,32 @@
+{% extends "shop_app/_base.html" %}
+{% block content %}
+    <h1>All products with options</h1>
+    <a href="{% url 'index' %}">HOME</a>
+
+    <div name="all-products">
+        <h2>Products</h2>
+        {% for product in all_prod %}
+            <ul>
+                {{ product }}
+            </ul>
+        {% endfor %}
+        <hr/>
+    </div>
+
+    <div name="all-options">
+        <h2>Options</h2>
+        {% for option in all_opt %}
+                <ul>
+                    {{ option }}
+{#                    {{ option.option_group_id }}#}
+{#                    {{ option.option_id }}#}
+                </ul>
+
+
+        {% endfor %}
+        <hr/>
+    </div>
+
+{% endblock %}
+
+

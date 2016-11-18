@@ -6,7 +6,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 # from django.utils.translation import ugettext_lazy as _
 
-from shop_app.models import ProductOptions, Product, Brand, Category, OptionsGroups, Options
+from shop_app.models import ProductOptions, Product, Brand, Category, OptionsGroups, Options  # TestImage
 
 __author__ = 'Anton Vodopyanov'
 
@@ -50,3 +50,9 @@ class OptionsForm(forms.ModelForm):
     class Meta:
         model = Options
         fields = '__all__'
+
+
+# class TestImageForm(forms.ModelForm):
+#     class Meta:
+#         model = TestImage
+#         fields = '__all__'

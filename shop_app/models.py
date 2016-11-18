@@ -29,6 +29,13 @@ class ProductOptions(models.Model):
     option_group_id = models.ForeignKey('OptionsGroups')
     option_id = models.ForeignKey('Options')
 
+    def __str__(self):
+        return '{product} | {group} | {option}'.format(
+            product=self.product_id,
+            group=self.option_group_id,
+            option=self.option_id
+        )
+
 
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50, unique=True)  # Nike, Adidas ...
@@ -53,7 +60,7 @@ class Product(models.Model):
     product_available = models.BooleanField(default=True)
     discount_available = models.BooleanField()
     is_bestseller = models.BooleanField(default=False)
-    product_image = models.ImageField(upload_to='static/products', blank=True)
+    product_image = models.ImageField(upload_to='media/products', blank=True)
     made_in = models.CharField(max_length=50)  # China, USA, Turkey ...
     fabrics = models.CharField(max_length=100)  # 87% wool, 10% polyamide, 3% elastane
 
@@ -65,10 +72,5 @@ class Product(models.Model):
         )
 
 
-
-
-
-
-
-
-
+# class TestImage(models.Model):
+#     image = models.ImageField(upload_to='/media/', blank=True)

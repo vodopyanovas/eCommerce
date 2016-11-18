@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from shop_app.forms import ProductForm, ProductOptionsForm, BrandForm, CategoryForm, OptionsGroupsForm, OptionsForm
+from shop_app.forms import ProductForm, ProductOptionsForm, BrandForm, CategoryForm, OptionsGroupsForm, OptionsForm  # TestImageForm
+from shop_app.models import Product, ProductOptions
 from django.db import transaction
 
 
@@ -11,12 +12,14 @@ def index(request):
         form = {
             'product_form': ProductForm(),
             'product_options': ProductOptionsForm(),
+            # 'image': TestImageForm(),
         }
         return render(request, 'shop_app/index.html', form)
 
     elif request.method == 'POST':
         product_form = ProductForm(request.POST)
         options_form = ProductOptionsForm(request.POST)
+        # image = TestImageForm(request.POST)
 
         if product_form.is_valid():
             with transaction.atomic():
@@ -26,9 +29,14 @@ def index(request):
             with transaction.atomic():
                 options_form.save()
 
+        # elif image.is_valid():
+        #     with transaction.atomic():
+        #         image.save()
+
         form = {
             'product_form': ProductForm(),
             'product_options': ProductOptionsForm(),
+            # 'image': TestImageForm(),
         }
 
         return render(request, 'shop_app/index.html', form)
@@ -77,4 +85,14 @@ def product_attributes(request):
         }
         return render(request, 'shop_app/attributes.html', form)
     return HttpResponse(status=405)
+
+
+def products(request):
+    if request.method == 'GET':
+        all_products = Product.objects.all()
+        all_options = ProductOptions.objects.all()
+
+        return render(request, 'shop_app/products.html', {'all_prod': all_products, 'all_opt': all_options})
+    return HttpResponse(status=405)
+
 

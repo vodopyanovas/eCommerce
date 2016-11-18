@@ -2,6 +2,8 @@
 {% block content %}
     <h1>Welcome to the BestShop!</h1>
 
+    <a href="{% url 'products' %}">TO PRODUCTS</a>
+
 
 
  <form name="product" action="{% url 'index' %}" method="POST">
@@ -21,6 +23,14 @@
      <hr />
 </form>
     <a href="{% url 'attributes' %}">To attributes adding</a>
+
+{#<form name="image" action="{% url 'index' %}" method="POST">#}
+{#    {% csrf_token %}#}
+{#    <h2>Add image</h2>#}
+{#    {{ image.as_p }}#}
+{#    <input type="submit" value="Add" />#}
+{#     <hr />#}
+{#</form>#}
 {% endblock %}
 
 
