@@ -3,14 +3,14 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    category_name = models.CharField(max_length=30)  # footwear, sportswear, jeans ...
+    category_name = models.CharField(max_length=30, unique=True)  # footwear, sportswear, jeans ...
 
     def __str__(self):
         return self.category_name
 
 
 class OptionsGroups(models.Model):
-    option_group_name = models.CharField(max_length=30)  # color, size ...
+    option_group_name = models.CharField(max_length=30, unique=True)  # color, size ...
 
     def __str__(self):
         return self.option_group_name
@@ -18,7 +18,7 @@ class OptionsGroups(models.Model):
 
 class Options(models.Model):
     option_group_id = models.ForeignKey('OptionsGroups')  # 1 - color, 2 - size
-    option_name = models.CharField(max_length=20)  # red, blue, M, S
+    option_name = models.CharField(max_length=20, unique=True)  # red, blue, M, S
 
     def __str__(self):
         return self.option_name
@@ -31,7 +31,7 @@ class ProductOptions(models.Model):
 
 
 class Brand(models.Model):
-    brand_name = models.CharField(max_length=50)  # Nike, Adidas ...
+    brand_name = models.CharField(max_length=50, unique=True)  # Nike, Adidas ...
 
     def __str__(self):
         return self.brand_name
@@ -53,12 +53,17 @@ class Product(models.Model):
     product_available = models.BooleanField(default=True)
     discount_available = models.BooleanField()
     is_bestseller = models.BooleanField(default=False)
-    product_image = models.ImageField(upload_to=None, blank=True)
+    product_image = models.ImageField(upload_to='static/products', blank=True)
     made_in = models.CharField(max_length=50)  # China, USA, Turkey ...
     fabrics = models.CharField(max_length=100)  # 87% wool, 10% polyamide, 3% elastane
 
     def __str__(self):
-        return self.product_name
+        return '{category} | {brand} | {product}'.format(
+            category=self.category_id,
+            brand=self.brand,
+            product=self.product_name
+        )
+
 
 
 

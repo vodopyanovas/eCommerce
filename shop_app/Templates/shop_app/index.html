@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Welcome to the BestShop!</h1>
 
-    <a href="{% url 'attributes' %}">To attributes adding</a>
+
 
  <form name="product" action="{% url 'index' %}" method="POST">
     {% csrf_token %}
@@ -20,6 +20,7 @@
     <input type="submit" value="Add" />
      <hr />
 </form>
+    <a href="{% url 'attributes' %}">To attributes adding</a>
 {% endblock %}
 
 
