@@ -94,5 +94,3 @@ def products(request):
 
         return render(request, 'shop_app/products.html', {'all_prod': all_products, 'all_opt': all_options})
     return HttpResponse(status=405)
-
-
