@@ -79,6 +79,9 @@ class ProductOptionAdmin(admin.ModelAdmin):
         'option_group',
         'option',
     )
+
+    list_filter = ('option_group__option_group_name',)
+    search_fields = ('product__product_name',)
 admin.site.register(ProductOptions, ProductOptionAdmin)
 
 
