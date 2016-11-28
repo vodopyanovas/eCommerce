@@ -43,10 +43,11 @@ class ProductOptions(models.Model):
         verbose_name_plural = 'Product Options'
 
     def __str__(self):
+
         return '{product} | {group} | {option}'.format(
-            product=self.product_id,
-            group=self.option_group_id,
-            option=self.option_id
+            product=self.product,
+            group=self.option_group,
+            option=self.option,
         )
 
 
@@ -93,7 +94,7 @@ class Product(models.Model):
         return '{category} | {brand} | {product}'.format(
             category=self.category,
             brand=self.brand,
-            product=self.product_name
+            product=self.product_name,
         )
 
 

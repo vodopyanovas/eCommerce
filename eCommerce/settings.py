@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # my apps
     'shop_app',
+    'shop_auth_app',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+
+# AUTH_USER_MODEL = 'shop_auth_app.CustomUser'
+# LOGIN_URL = '/users/login'

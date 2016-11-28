@@ -90,7 +90,10 @@ def product_attributes(request):
 def products(request):
     if request.method == 'GET':
         all_products = Product.objects.all()
+
         all_options = ProductOptions.objects.all()
+
+        # group =
 
         return render(request, 'shop_app/products.html', {'all_prod': all_products, 'all_opt': all_options})
     return HttpResponse(status=405)
