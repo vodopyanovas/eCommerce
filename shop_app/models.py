@@ -82,7 +82,7 @@ class Product(models.Model):
     product_available = models.BooleanField(default=True)
     is_bestseller = models.BooleanField(default=False)
 
-    product_image = models.ImageField(upload_to='media/products', blank=True)
+    product_image = models.ImageField(upload_to='media/products/', blank=True)
 
     made_in = models.CharField(max_length=50)  # China, USA, Turkey ...
     fabrics = models.CharField(max_length=100)  # 87% wool, 10% polyamide, 3% elastane
@@ -96,6 +96,15 @@ class Product(models.Model):
             brand=self.brand,
             product=self.product_name,
         )
+
+
+class Images (models.Model):
+    product = models.ForeignKey('Product')
+    path = models.ImageField(upload_to='media/products/', blank=True)
+    alt = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = 'Images'
 
 
 # class TestImage(models.Model):
