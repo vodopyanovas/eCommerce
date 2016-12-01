@@ -1,5 +1,5 @@
 from django.contrib import admin
-from shop_app.models import Product, Brand, Category, Options, ProductOptions, OptionsGroups
+from shop_app.models import Product, Brand, Category, Options, ProductOptions, OptionsGroups, Image, Country, Subscriber
 
 
 # Register your models here.
@@ -16,6 +16,7 @@ discount_off.short_description = 'Off discount'
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'sku',
+        'gender',
         'brand',
         'category',
         'product_name',
@@ -29,7 +30,6 @@ class ProductAdmin(admin.ModelAdmin):
         'is_bestseller',
         # 'product_image',
         'made_in',
-        # 'fabrics'
     )
 
     list_editable = (
@@ -38,7 +38,7 @@ class ProductAdmin(admin.ModelAdmin):
         'product_stock',
     )
 
-    list_filter = ('category__category_name', 'brand__brand_name', )
+    list_filter = ('category__category_name', 'brand__brand_name',)
 
     search_fields = (
         'sku',
@@ -47,7 +47,10 @@ class ProductAdmin(admin.ModelAdmin):
         'category__category_name',
     )
 
-    actions = (discount_on, discount_off, )
+    actions = (
+        discount_on,
+        discount_off,
+    )
 admin.site.register(Product, ProductAdmin)
 
 
@@ -91,3 +94,32 @@ class OptionsGroupAdmin(admin.ModelAdmin):
     )
 admin.site.register(OptionsGroups, OptionsGroupAdmin)
 
+
+class ImageUploadAdmin(admin.ModelAdmin):
+    list_display = (
+        'product',
+        'alt',
+    )
+
+    search_fields = (
+        'product__product_name',
+    )
+admin.site.register(Image, ImageUploadAdmin)
+
+
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = (
+        'email',
+    )
+
+    search_fields = (
+        'email',
+    )
+admin.site.register(Subscriber, SubscriberAdmin)
+
+
+class CountryAddAdmin(admin.ModelAdmin):
+    list_display = (
+        'country_name',
+    )
+admin.site.register(Country, CountryAddAdmin)

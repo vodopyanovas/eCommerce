@@ -9,7 +9,8 @@
     <title>{% block title %} {% endblock %}</title>
 
     <!-- Font awesome -->
-    <link href="{% static 'shop_app_2/css/font-awesome.css' %}" rel="stylesheet">
+{#    <link href="{% static 'shop_app_2/css/font-awesome.css' %}" rel="stylesheet">#}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="{% static 'shop_app_2/css/bootstrap.css' %}" rel="stylesheet">
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
@@ -114,7 +115,7 @@
                     <!-- Text based logo -->
                     <a href="{% url 'index' %}">
                       <span class="fa fa-shopping-cart"></span>
-                      <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                      <p>best<strong>Shop</strong> <span>Your Shopping Partner</span></p>
                     </a>
                     <!-- img based logo -->
                     <!-- <a href="index.html"><img src="{% static 'shop_app_2/img/logo.jpg' %}" alt="logo img"></a> -->
@@ -193,6 +194,21 @@
                 <!-- Left nav -->
                 <ul class="nav navbar-nav">
                   <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="#">Brands <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Brand1</a></li>
+                      <li><a href="#">Brand2</a></li>
+                      <li><a href="#">Brand3</a></li>
+                      <li><a href="#">Brand4</a></li>
+                      <li><a href="#">Brand5</a></li>
+                      <li><a href="#">Brand6</a></li>
+                      <li><a href="#">And more.. <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">More</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
                   <li><a href="#">Men <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="#">Casual</a></li>
@@ -284,13 +300,13 @@
                     </ul>
                   </li>
                   <li><a href="#">Furniture</a></li>
-                  <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="blog-archive.html">Blog Style 1</a></li>
-                      <li><a href="blog-archive-2.html">Blog Style 2</a></li>
-                      <li><a href="blog-single.html">Blog Single</a></li>
-                    </ul>
-                  </li>
+{#                  <li><a href="blog-archive.html">Blog <span class="caret"></span></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="blog-archive.html">Blog Style 1</a></li>#}
+{#                      <li><a href="blog-archive-2.html">Blog Style 2</a></li>#}
+{#                      <li><a href="blog-single.html">Blog Single</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
                   <li><a href="{% url 'contact' %}">Contact</a></li>
                   <li><a href="#">Pages <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -317,7 +333,7 @@
                 <div class="col-md-12">
                   <div class="aa-subscribe-area">
                     <h3>Subscribe our newsletter </h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
+{#                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>#}
                     <form action="" class="aa-subscribe-form">
                       <input type="email" name="" id="" placeholder="Enter your Email">
                       <input type="submit" value="Subscribe">

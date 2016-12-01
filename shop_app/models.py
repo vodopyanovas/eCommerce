@@ -1,4 +1,8 @@
+import os
 from django.db import models
+from datetime import date
+from django.utils import timezone
+from eCommerce.settings import MEDIA_ROOT
 
 
 # Create your models here.
@@ -43,7 +47,6 @@ class ProductOptions(models.Model):
         verbose_name_plural = 'Product Options'
 
     def __str__(self):
-
         return '{product} | {group} | {option}'.format(
             product=self.product,
             group=self.option_group,
@@ -53,6 +56,7 @@ class ProductOptions(models.Model):
 
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50, unique=True)  # Nike, Adidas ...
+    brand_logo = models.ImageField(upload_to='shop_app/static/shop_app_2/img/brand_logo', blank=True)
 
     class Meta:
         verbose_name_plural = 'Brands'
@@ -62,9 +66,15 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
+    GENDER_CHOICE = (
+        ('M', 'Male',),
+        ('F', 'Female',),
+        ('Uni', 'Unisex',),
+    )
+
     sku = models.CharField(max_length=50)
     # vendor_id = models.CharField(max_length=50, blank=True, default='')
-
+    gender = models.CharField(max_length=3, choices=GENDER_CHOICE, blank=True)
     brand = models.ForeignKey('Brand')
     category = models.ForeignKey('Category')
 
@@ -73,7 +83,7 @@ class Product(models.Model):
     product_description_long = models.TextField(blank=True, default='')
 
     unit_price = models.DecimalField(max_digits=9, decimal_places=2)
-    discount = models.DecimalField(max_digits=3, decimal_places=2, default=1.0,)
+    discount = models.DecimalField(max_digits=3, decimal_places=2, default=1.0, )
     discount_available = models.BooleanField()
 
     product_weight = models.DecimalField(max_digits=6, decimal_places=3, blank=True, default=0)
@@ -82,30 +92,66 @@ class Product(models.Model):
     product_available = models.BooleanField(default=True)
     is_bestseller = models.BooleanField(default=False)
 
-    product_image = models.ImageField(upload_to='media/products/', blank=True)
+    # product_image = models.ImageField(upload_to='media/products/', blank=True)
 
-    made_in = models.CharField(max_length=50)  # China, USA, Turkey ...
+    made_in = models.ForeignKey('Country')  # China, USA, Turkey ...
     fabrics = models.CharField(max_length=100)  # 87% wool, 10% polyamide, 3% elastane
+    product_add_date = models.DateTimeField(default=timezone.now, )
 
     class Meta:
         verbose_name_plural = 'Products'
 
     def __str__(self):
-        return '{category} | {brand} | {product}'.format(
+        return '{category}/{brand}/{product}'.format(
             category=self.category,
             brand=self.brand,
             product=self.product_name,
         )
 
 
-class Images (models.Model):
+TODAY = date.today()
+TODAY_PATH = TODAY.strftime("%Y/%m-%d")
+
+
+def upload_large_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/large
+    return os.path.join('view-slider', 'large', TODAY_PATH, str(instance.product), filename)
+
+
+def upload_medium_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/medium
+    return os.path.join('view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
+
+
+def upload_thubm_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/thumbnail
+    return os.path.join('view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
+
+
+class Image(models.Model):
     product = models.ForeignKey('Product')
-    path = models.ImageField(upload_to='media/products/', blank=True)
+    large = models.ImageField(upload_to=upload_large_img, blank=True, max_length=300)
+    medium = models.ImageField(upload_to=upload_medium_img, blank=True, max_length=300)
+    thumbnail = models.ImageField(upload_to=upload_thubm_img, blank=True, max_length=300)
     alt = models.CharField(max_length=50)
+    image_add_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = 'Images'
 
+    def get_category(self):
+        return str(self.category)
 
-# class TestImage(models.Model):
-#     image = models.ImageField(upload_to='/media/', blank=True)
+    def get_brand(self):
+        return str(self.brand)
+
+
+class Country(models.Model):
+    country_name = models.CharField(max_length=30, )
+
+    class Meta:
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return self.country_name
+
+
+class Subscriber(models.Model):
+    email = models.CharField(max_length=50)

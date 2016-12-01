@@ -24,7 +24,7 @@
       <div class="aa-catg-head-banner-content">
         <h2>Checkout Page</h2>
         <ol class="breadcrumb">
-          <li><a href="{% url 'index' %}>Home</a></li>                   
+          <li><a href="{% url 'index' %}">Home</a></li>
           <li class="active">Checkout</li>
         </ol>
       </div>
@@ -131,27 +131,36 @@
                           </div>   
                           <div class="row">
                             <div class="col-md-12">
+
+                              <!-- edits -->
                               <div class="aa-checkout-single-bill">
-                                <select>
-                                  <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                  <option value="17">Russia</option>
-                                </select>
+                                  <select>
+                                      <option value="0">Select Your Country</option>
+                                      {% for country in contr %}
+                                          <option>{{ country }}</option>
+                                      {% endfor %}
+                                  </select>
+
+{#                                <select>#}
+{#                                  <option value="0">Select Your Country</option>#}
+{#                                  <option value="1">Australia</option>#}
+{#                                  <option value="2">Afganistan</option>#}
+{#                                  <option value="3">Bangladesh</option>#}
+{#                                  <option value="4">Belgium</option>#}
+{#                                  <option value="5">Brazil</option>#}
+{#                                  <option value="6">Canada</option>#}
+{#                                  <option value="7">China</option>#}
+{#                                  <option value="8">Denmark</option>#}
+{#                                  <option value="9">Egypt</option>#}
+{#                                  <option value="10">India</option>#}
+{#                                  <option value="11">Iran</option>#}
+{#                                  <option value="12">Israel</option>#}
+{#                                  <option value="13">Mexico</option>#}
+{#                                  <option value="14">UAE</option>#}
+{#                                  <option value="15">UK</option>#}
+{#                                  <option value="16">USA</option>#}
+{#                                  <option value="17">Russia</option>#}
+{#                                </select>#}
                               </div>                             
                             </div>                            
                           </div>

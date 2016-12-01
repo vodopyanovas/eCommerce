@@ -120,10 +120,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'collection')
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'shop_app', 'media')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/shop_app/media/'
 
 # AUTH_USER_MODEL = 'shop_auth_app.CustomUser'
 # LOGIN_URL = '/users/login'

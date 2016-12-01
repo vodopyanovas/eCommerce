@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from shop_app.forms import ProductForm, ProductOptionsForm, BrandForm, CategoryForm, OptionsGroupsForm, OptionsForm  # TestImageForm
-from shop_app.models import Product, ProductOptions
+from shop_app.forms import ProductForm, ProductOptionsForm, BrandForm, CategoryForm, OptionsGroupsForm, OptionsForm, Country
+from shop_app.models import Product, ProductOptions, Country, Image
 from django.db import transaction
 
 
@@ -68,7 +68,9 @@ def cart(request):
 
 def checkout(request):
     if request.method == 'GET':
-        return render(request, 'shop_app_2/checkout.html')
+        country = Country.objects.order_by('country_name')
+
+        return render(request, 'shop_app_2/checkout.html', {'contr': country})
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/checkout.html')
@@ -108,7 +110,10 @@ def product(request):
 
 def product_detail(request):
     if request.method == 'GET':
-        return render(request, 'shop_app_2/product-detail.html')
+
+        # images = Image.objects.all()
+
+        return render(request, 'shop_app_2/product-detail.html',)
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/product-detail.html')
