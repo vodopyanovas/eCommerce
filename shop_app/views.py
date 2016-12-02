@@ -112,16 +112,22 @@ def product_detail(request):
     if request.method == 'GET':
 
         # images = Image.objects.all()
-        pic = Image.objects.get(pk=1)
-        large_url = pic.large.url
-        medium_url = pic.medium.url
-        thumb_url = pic.thumbnail.url
+        img = Image.objects.all().filter(product_id=3,)
+        # large_url = pic.large.url
+        # medium_url = pic.medium.url
+        # thumb_url = pic.thumbnail.url
+        get_product = Product.objects.get(pk=3)
+        get_options = ProductOptions.objects.filter(product_id=3)
+        size = get_options.filter(option__option_group=2)
+        color = get_options.filter(option__option_group=1)
 
         return render(request, 'shop_app_2/product-detail.html', {
-            'large': large_url,
-            'medium': medium_url,
-            'thumb': thumb_url
+            'image': img,
+            'product': get_product,
+            'sizes': size,
+            'colors': color,
         })
+
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/product-detail.html')

@@ -73,6 +73,12 @@ class OptionAdmin(admin.ModelAdmin):
         'option_group',
         'option_name',
     )
+
+    list_editable = (
+        'option_name',
+    )
+
+    list_filter = ('option_group__option_group_name',)
 admin.site.register(Options, OptionAdmin)
 
 
@@ -83,7 +89,7 @@ class ProductOptionAdmin(admin.ModelAdmin):
         'option',
     )
 
-    list_filter = ('option_group__option_group_name',)
+    list_filter = ('option_group__option_group_name','product__product_name')
     search_fields = ('product__product_name',)
 admin.site.register(ProductOptions, ProductOptionAdmin)
 

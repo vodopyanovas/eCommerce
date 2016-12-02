@@ -136,11 +136,8 @@ class Image(models.Model):
     class Meta:
         verbose_name_plural = 'Images'
 
-    def get_category(self):
-        return str(self.category)
-
-    def get_brand(self):
-        return str(self.brand)
+    def __str__(self):
+        return self.product
 
 
 class Country(models.Model):

@@ -16,6 +16,9 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from shop_app.views import \
     index, product_attributes, products,\
@@ -38,5 +41,8 @@ urlpatterns = [
     # url(r'^attributes/', product_attributes, name='attributes'),
     # url(r'^products/', products, name='products'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()
 
 
