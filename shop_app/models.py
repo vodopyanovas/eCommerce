@@ -113,15 +113,15 @@ TODAY = date.today()
 TODAY_PATH = TODAY.strftime("%Y/%m-%d")
 
 
-def upload_large_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/large
+def upload_large_img(instance, filename):  # /shop_app/media/view-slider/large/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_large.jpg
     return os.path.join('view-slider', 'large', TODAY_PATH, str(instance.product), filename)
 
 
-def upload_medium_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/medium
+def upload_medium_img(instance, filename):  # /shop_app/media/view-slider/medium/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_medium.jpg
     return os.path.join('view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
 
 
-def upload_thubm_img(instance, filename):  # shop_app/static/shop_app_2/img/view-slider/thumbnail
+def upload_thubm_img(instance, filename):  # shop_app/media/view-slider/thumbnail/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_thumb.jpg
     return os.path.join('view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
 
 
