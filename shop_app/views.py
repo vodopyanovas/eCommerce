@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404
 
-from shop_app.forms import ProductForm, ProductOptionsForm, BrandForm, CategoryForm, OptionsGroupsForm, OptionsForm, Country
+# from shop_app.forms import *
 from shop_app.models import Product, ProductOptions, Country, Image
+from shop_app.cart import Cart
 from django.db import transaction
 
 
@@ -15,7 +16,11 @@ def index(request):
         #     # 'image': TestImageForm(),
         # }
         # return render(request, 'shop_app/index.html', form)
-        return render(request, 'shop_app_2/index.html')
+        latest_products = Product.objects.all().order_by('product_add_date')
+
+        return render(request, 'shop_app_2/index.html', {
+            'latest': latest_products,
+        })
 
     elif request.method == 'POST':
         # product_form = ProductForm(request.POST)
@@ -70,7 +75,7 @@ def checkout(request):
     if request.method == 'GET':
         country = Country.objects.order_by('country_name')
 
-        return render(request, 'shop_app_2/checkout.html', {'contr': country})
+        return render(request, 'shop_app_2/checkout.html', {'country': country})
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/checkout.html')
@@ -111,11 +116,8 @@ def product(request):
 def product_detail(request):
     if request.method == 'GET':
 
-        # images = Image.objects.all()
         img = Image.objects.all().filter(product_id=3,)
-        # large_url = pic.large.url
-        # medium_url = pic.medium.url
-        # thumb_url = pic.thumbnail.url
+
         get_product = Product.objects.get(pk=3)
         get_options = ProductOptions.objects.filter(product_id=3)
         size = get_options.filter(option__option_group=2)
@@ -127,7 +129,6 @@ def product_detail(request):
             'sizes': size,
             'colors': color,
         })
-
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/product-detail.html')
@@ -144,6 +145,19 @@ def account(request):
 
     return HttpResponse(status=405)
 
+
+def add_to_cart(request, product_id, quantity):
+    product = Product.objects.get(id=product_id)
+    cart = Cart(request)
+    cart.add(product, product.unit_price, quantity)
+
+def remove_from_cart(request, product_id):
+    product = Product.objects.get(id=product_id)
+    cart = Cart(request)
+    cart.remove(product)
+
+def get_cart(request):
+    return render_to_response('shop_app_2/cart.html', dict(cart=Cart(request)))
 
 
 def product_attributes(request):

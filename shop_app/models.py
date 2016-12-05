@@ -3,6 +3,10 @@ from django.db import models
 from datetime import date
 from django.utils import timezone
 from eCommerce.settings import MEDIA_ROOT
+from django.contrib.contenttypes.models import ContentType
+
+TODAY = date.today()
+TODAY_PATH = TODAY.strftime("%Y/%m-%d")
 
 
 # Create your models here.
@@ -13,7 +17,7 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-    def __str__(self):
+    def __str_(self):
         return self.category_name
 
 
@@ -23,7 +27,7 @@ class OptionsGroups(models.Model):
     class Meta:
         verbose_name_plural = 'Options Groups'
 
-    def __str__(self):
+    def __str_(self):
         return self.option_group_name
 
 
@@ -34,7 +38,7 @@ class Options(models.Model):
     class Meta:
         verbose_name_plural = 'Options'
 
-    def __str__(self):
+    def __str_(self):
         return self.option_name
 
 
@@ -46,7 +50,7 @@ class ProductOptions(models.Model):
     class Meta:
         verbose_name_plural = 'Product Options'
 
-    def __str__(self):
+    def __str_(self):
         return '{product} | {group} | {option}'.format(
             product=self.product,
             group=self.option_group,
@@ -54,14 +58,17 @@ class ProductOptions(models.Model):
         )
 
 
+def upload_brand_img(instance, filename):  # shop_app/media/brand-logo
+    return os.path.join(MEDIA_ROOT, 'brand-logo', TODAY_PATH, str(instance.brand_name), filename)
+
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50, unique=True)  # Nike, Adidas ...
-    brand_logo = models.ImageField(upload_to='shop_app/static/shop_app_2/img/brand_logo', blank=True)
+    brand_logo = models.ImageField(upload_to=upload_brand_img, blank=True)
 
     class Meta:
         verbose_name_plural = 'Brands'
 
-    def __str__(self):
+    def __str_(self):
         return self.brand_name
 
 
@@ -101,7 +108,7 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
 
-    def __str__(self):
+    def __str_(self):
         return '{category}/{brand}/{product}'.format(
             category=self.category,
             brand=self.brand,
@@ -109,20 +116,14 @@ class Product(models.Model):
         )
 
 
-TODAY = date.today()
-TODAY_PATH = TODAY.strftime("%Y/%m-%d")
-
-
 def upload_large_img(instance, filename):  # /shop_app/media/view-slider/large/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_large.jpg
-    return os.path.join('view-slider', 'large', TODAY_PATH, str(instance.product), filename)
-
+    return os.path.join(MEDIA_ROOT, 'view-slider', 'large', TODAY_PATH, str(instance.product), filename)
 
 def upload_medium_img(instance, filename):  # /shop_app/media/view-slider/medium/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_medium.jpg
-    return os.path.join('view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
-
+    return os.path.join(MEDIA_ROOT, 'view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
 
 def upload_thubm_img(instance, filename):  # shop_app/media/view-slider/thumbnail/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_thumb.jpg
-    return os.path.join('view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
+    return os.path.join(MEDIA_ROOT, 'view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
 
 
 class Image(models.Model):
@@ -136,7 +137,7 @@ class Image(models.Model):
     class Meta:
         verbose_name_plural = 'Images'
 
-    def __str__(self):
+    def __str_(self):
         return self.product
 
 
@@ -145,10 +146,67 @@ class Country(models.Model):
 
     class Meta:
         verbose_name_plural = 'Countries'
+        ordering = ('country_name',)
 
-    def __str__(self):
+    def __str_(self):
         return self.country_name
 
 
 class Subscriber(models.Model):
     email = models.CharField(max_length=50)
+
+
+# Cart models
+class Cart(models.Model):
+    creation_date = models.DateTimeField(verbose_name=('creation date'))
+    checked_out = models.BooleanField(default=False, verbose_name=('checked out'))
+
+    class Meta:
+        verbose_name = ('cart')
+        verbose_name_plural = ('carts')
+        ordering = ('-creation_date',)
+
+    def __str__(self):
+        return self.creation_date
+
+
+class ItemManager(models.Manager):
+    def get(self, *args, **kwargs):
+        if 'product' in kwargs:
+            kwargs['content_type'] = ContentType.objects.get_for_model(type(kwargs['product']))
+            kwargs['object_id'] = kwargs['product'].pk
+            del(kwargs['product'])
+        return super(ItemManager, self).get(*args, **kwargs)
+
+
+class Item(models.Model):
+    cart = models.ForeignKey(Cart, verbose_name=('cart'))
+    quantity = models.PositiveIntegerField(verbose_name=('quantity'))
+    unit_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=('unit price'))
+    # product as generic relation
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+
+    objects = ItemManager()
+
+    class Meta:
+        verbose_name = ('item')
+        verbose_name_plural = ('items')
+        ordering = ('cart',)
+
+    def __str__(self):
+        return '{quantity} units of {product}'.format(quantity=self.quantity, product=self.product.__class__.__name__)
+
+    def total_price(self):
+        return self.quantity * self.unit_price
+    total_price = property(total_price)
+
+    # product
+    def get_product(self):
+        return self.content_type.get_object_for_this_type(pk=self.object_id)
+
+    def set_product(self, product):
+        self.content_type = ContentType.objects.get_for_model(type(product))
+        self.object_id = product.pk
+
+    product = property(get_product, set_product)

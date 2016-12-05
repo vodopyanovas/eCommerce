@@ -76,9 +76,9 @@
                     <div class="aa-price-block">
                       <span class="aa-product-view-price">${{ product.unit_price }}</span>  <!-- TODO: something with $-sign -->
                       {% if product.product_available %}
-                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                        <p class="aa-product-avilability">Availability: <span>In stock</span></p>
                       {% else %}
-                        <p class="aa-product-avilability">Avilability: <span>Not available</span></p>
+                        <p class="aa-product-avilability">Availability: <span>Not available</span></p>
                       {% endif %}
                     </div>
                     <p>{{ product.product_description_short }}</p>
@@ -97,7 +97,7 @@
 {#                      <a href="#" class="aa-color-black"></a>#}
 {#                      <a href="#" class="aa-color-white"></a>#}
                         {% endfor %}
-                        <a href="#" class="aa-color-orange"></a>
+{#                        <a href="#" class="aa-color-orange"></a>#}
                     </div>
 
                     <div class="aa-prod-quantity">
