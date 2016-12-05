@@ -17,7 +17,7 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-    def __str_(self):
+    def __str__(self):
         return self.category_name
 
 
@@ -27,7 +27,7 @@ class OptionsGroups(models.Model):
     class Meta:
         verbose_name_plural = 'Options Groups'
 
-    def __str_(self):
+    def __str__(self):
         return self.option_group_name
 
 
@@ -38,7 +38,7 @@ class Options(models.Model):
     class Meta:
         verbose_name_plural = 'Options'
 
-    def __str_(self):
+    def __str__(self):
         return self.option_name
 
 
@@ -50,7 +50,7 @@ class ProductOptions(models.Model):
     class Meta:
         verbose_name_plural = 'Product Options'
 
-    def __str_(self):
+    def __str__(self):
         return '{product} | {group} | {option}'.format(
             product=self.product,
             group=self.option_group,
@@ -68,7 +68,7 @@ class Brand(models.Model):
     class Meta:
         verbose_name_plural = 'Brands'
 
-    def __str_(self):
+    def __str__(self):
         return self.brand_name
 
 
@@ -108,7 +108,7 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
 
-    def __str_(self):
+    def __str__(self):
         return '{category}/{brand}/{product}'.format(
             category=self.category,
             brand=self.brand,
@@ -137,7 +137,7 @@ class Image(models.Model):
     class Meta:
         verbose_name_plural = 'Images'
 
-    def __str_(self):
+    def __str__(self):
         return self.product
 
 
@@ -148,7 +148,7 @@ class Country(models.Model):
         verbose_name_plural = 'Countries'
         ordering = ('country_name',)
 
-    def __str_(self):
+    def __str__(self):
         return self.country_name
 
 
