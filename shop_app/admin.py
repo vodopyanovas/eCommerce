@@ -1,5 +1,7 @@
 from django.contrib import admin
-from shop_app.models import Product, Brand, Category, Options, ProductOptions, OptionsGroups, Image, Country, Subscriber
+from shop_app.models import (
+    Product, Brand, Category, Options, ProductOptions, OptionsGroups, Image, Country, Subscriber, UserInfo, Address,
+)
 
 
 # Register your models here.
@@ -129,3 +131,35 @@ class CountryAddAdmin(admin.ModelAdmin):
         'country_name',
     )
 admin.site.register(Country, CountryAddAdmin)
+
+
+class UserInfoAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'name',
+        'last_name',
+        'company_name',
+        'phone',
+    )
+
+    list_filter = (
+        'user__email',
+    )
+admin.site.register(UserInfo, UserInfoAdmin)
+
+
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'country',
+        'city',
+        'address',
+        'apartment',
+        'district',
+        'postcode',
+    )
+
+    list_filter = (
+        'country',
+    )
+admin.site.register(Address, AddressAdmin)

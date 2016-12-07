@@ -4,6 +4,7 @@ from datetime import date
 from django.utils import timezone
 from eCommerce.settings import MEDIA_ROOT
 from django.contrib.contenttypes.models import ContentType
+from shop_auth_app.models import MyUser
 
 TODAY = date.today()
 TODAY_PATH = TODAY.strftime("%Y/%m-%d")
@@ -210,3 +211,38 @@ class Item(models.Model):
         self.object_id = product.pk
 
     product = property(get_product, set_product)
+
+
+# User Info
+class Address(models.Model):
+    user = models.ForeignKey(MyUser)
+    address = models.CharField(max_length=100)
+    country = models.ForeignKey(Country)
+    city = models.CharField(max_length=100)
+    apartment = models.CharField(max_length=20)
+    district = models.CharField(max_length=100, blank=True)
+    postcode = models.PositiveSmallIntegerField()
+
+    class Meta:
+        verbose_name = ('address')
+        verbose_name_plural = ('addresses')
+
+
+class UserInfo(models.Model):
+    user = models.ForeignKey(MyUser)
+    name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=70)
+
+    company_name = models.CharField(max_length=100, blank=True)
+
+    phone = models.CharField(max_length=20, blank=True)
+
+    class Meta:
+        verbose_name = ('user info')
+        verbose_name_plural = ('users info')
+
+
+
+
+
+

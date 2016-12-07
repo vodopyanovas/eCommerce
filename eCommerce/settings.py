@@ -128,3 +128,5 @@ MEDIA_URL = '/media/'
 
 # AUTH_USER_MODEL = 'shop_auth_app.CustomUser'
 # LOGIN_URL = '/users/login'
+
+AUTH_USER_MODEL = 'customauth.MyUser'

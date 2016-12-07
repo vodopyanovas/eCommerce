@@ -61,3 +61,8 @@ class CountryForm(forms.ChoiceField):
     class Meta:
         model = Country
         fields = 'country_name'
+
+
+# class UserForm(forms.ModelForm):
+#     class Meta:
+#         model =

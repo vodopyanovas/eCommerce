@@ -141,20 +141,20 @@ def account(request):
         return render(request, 'shop_app_2/account.html')
 
     elif request.method == 'POST':
-        return render(request, 'shop_app_2/account.html')
-
+        # return render(request, 'shop_app_2/account.html')
+        return render(request, 'shop_auth_app/account.html')
     return HttpResponse(status=405)
 
 
 def add_to_cart(request, product_id, quantity):
-    product = Product.objects.get(id=product_id)
+    product_cart = Product.objects.get(id=product_id)
     cart = Cart(request)
-    cart.add(product, product.unit_price, quantity)
+    cart.add(product, product_cart.unit_price, quantity)
 
 def remove_from_cart(request, product_id):
-    product = Product.objects.get(id=product_id)
+    product_cart = Product.objects.get(id=product_id)
     cart = Cart(request)
-    cart.remove(product)
+    cart.remove(product_cart)
 
 def get_cart(request):
     return render_to_response('shop_app_2/cart.html', dict(cart=Cart(request)))
