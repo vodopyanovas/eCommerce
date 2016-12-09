@@ -1,0 +1,39 @@
+{% extends "shop_app_2/_base.html" %}
+{% load static %}
+{% block title %}BestShop | Register Page{% endblock %}
+
+   {% block content %}
+
+ <!-- Cart view section -->
+ <section id="aa-myaccount">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+        <div class="aa-myaccount-area"> 
+              <div class="col-md-6">
+                <div class="aa-myaccount-register">
+                 <h4>Register</h4>
+                 <form method="POST" action="{% url 'registration_register' %}" class="aa-login-form">
+                     {% csrf_token %}
+                    <label for="">Email address<span>*</span></label>
+                    {{ form.email }}
+{#                     {{ email }}#}
+{#                    <input type="text" placeholder="Email">#}
+                    <label for="">Password<span>*</span></label>
+                     {{ form.password1 }}
+{#                     {{ password1 }}#}
+                     <label for="">Password confirmation<span>*</span></label>
+                     {{ form.password2 }}
+{#                    <input type="password" placeholder="Password">#}
+                    <button type="submit" class="aa-browse-btn">Register</button>                    
+                  </form>
+                </div>
+              </div>
+            </div>          
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- / Cart view section -->
+{% endblock %}

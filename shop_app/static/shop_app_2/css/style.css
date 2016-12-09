@@ -2640,7 +2640,8 @@ img {
 /*---- Login form ----*/
 
 .aa-login-form input[type="text"],
-.aa-login-form input[type="password"] {
+.aa-login-form input[type="password"],
+.aa-login-form input[type="email"]{
   border: 1px solid #ccc;
   font-size: 16px;
   height: 40px;

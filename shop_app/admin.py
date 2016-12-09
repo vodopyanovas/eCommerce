@@ -30,7 +30,6 @@ class ProductAdmin(admin.ModelAdmin):
         # 'products_available',
         'discount_available',
         'is_bestseller',
-        # 'product_image',
         'made_in',
     )
 

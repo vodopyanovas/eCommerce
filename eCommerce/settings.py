@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # my apps
     'shop_app',
     'shop_auth_app',
+    'registration',
+
 ]
 
 MIDDLEWARE = [
@@ -126,7 +128,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'shop_app', 'media')
 
 MEDIA_URL = '/media/'
 
-# AUTH_USER_MODEL = 'shop_auth_app.CustomUser'
 # LOGIN_URL = '/users/login'
 
-AUTH_USER_MODEL = 'customauth.MyUser'
+AUTH_USER_MODEL = 'shop_auth_app.MyUser'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

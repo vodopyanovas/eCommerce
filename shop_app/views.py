@@ -1,7 +1,8 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404
 
-# from shop_app.forms import *
+from shop_app.forms import SubscriberForm
+from shop_auth_app.forms import CustomAuthenticationForm
 from shop_app.models import Product, ProductOptions, Country, Image
 from shop_app.cart import Cart
 from django.db import transaction
@@ -20,6 +21,7 @@ def index(request):
 
         return render(request, 'shop_app_2/index.html', {
             'latest': latest_products,
+            'form': CustomAuthenticationForm,
         })
 
     elif request.method == 'POST':
@@ -116,7 +118,7 @@ def product(request):
 def product_detail(request):
     if request.method == 'GET':
 
-        img = Image.objects.all().filter(product_id=3,)
+        img = Image.objects.all().filter(product_id=3,).first()
 
         get_product = Product.objects.get(pk=3)
         get_options = ProductOptions.objects.filter(product_id=3)
@@ -138,11 +140,12 @@ def product_detail(request):
 
 def account(request):
     if request.method == 'GET':
-        return render(request, 'shop_app_2/account.html')
+        form = CustomAuthenticationForm()
+        return render(request, 'shop_app_2/account.html', {'form': form})
 
     elif request.method == 'POST':
-        # return render(request, 'shop_app_2/account.html')
-        return render(request, 'shop_auth_app/account.html')
+        # return render(request, 'shop_app_2/login.html')
+        return render(request, 'shop_auth_app/login.html')
     return HttpResponse(status=405)
 
 
@@ -215,3 +218,21 @@ def products(request):
     #     return render(request, 'shop_app/products.html', {'all_prod': all_products, 'all_opt': all_options})
     # return HttpResponse(status=405)
     pass
+
+
+# def subscribe(request):
+#     # if request.method == 'GET':
+#     #     return render(request, 'shop_app_2/contact.html')
+#
+#     if request.method == 'POST':
+#         subs_form = SubscriberForm(request.POST)
+#
+#         if subs_form.is_valid():
+#             with transaction.atomic():
+#                 subs_form.save()
+#
+#         # my_form = {'subscribe_form': SubscriberForm()}
+#
+#         return render(request, 'shop_app_2/index.html',)
+#
+#     return HttpResponse(status=405)

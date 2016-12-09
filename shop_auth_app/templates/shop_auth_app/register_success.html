@@ -1,0 +1,10 @@
+{% extends "shop_app_2/_base.html" %}
+{% load static %}
+{% block title %}Registration Successful{% endblock %}
+{% block head %}
+ Registration Completed Successfully
+{% endblock %}
+{% block content %}
+    Thank you for registering.
+    <a href="{% url 'shop_auth_app:login' %}">Login</a>
+{% endblock %}

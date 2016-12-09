@@ -154,7 +154,7 @@ class Country(models.Model):
 
 
 class Subscriber(models.Model):
-    email = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
 
 
 # Cart models
@@ -240,9 +240,3 @@ class UserInfo(models.Model):
     class Meta:
         verbose_name = ('user info')
         verbose_name_plural = ('users info')
-
-
-
-
-
-

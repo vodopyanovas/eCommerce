@@ -90,11 +90,24 @@
                   <!-- / header top left -->
                   <div class="aa-header-top-right">
                     <ul class="aa-head-top-nav-right">
-                      <li><a href="{% url 'account' %}">My Account</a></li>
+                      {% if user.is_authenticated %}
+                        <li><a href="{% url 'account' %}">{{ user }}</a></li>
+                      {% else %}
+                        <li><a href="{% url 'account' %}">My Account</a></li>
+                      {% endif %}
+
+
+
                       <li class="hidden-xs"><a href="{% url 'wishlist' %}">Wishlist</a></li>
                       <li class="hidden-xs"><a href="{% url 'cart' %}">My Cart</a></li>
                       <li class="hidden-xs"><a href="{% url 'checkout' %}">Checkout</a></li>
-                      <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+{#                      <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>#}
+
+                      {% if user.is_authenticated %}
+                        <li> <a href="{% url 'shop_auth_app:logout' %}" >Logout</a></li>
+                      {% else %}
+                        <li><a href="{% url 'shop_auth_app:login' %}" >Login</a></li>
+                      {% endif %}
                     </ul>
                   </div>
                 </div>
@@ -334,8 +347,9 @@
                   <div class="aa-subscribe-area">
                     <h3>Subscribe our newsletter </h3>
 {#                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>#}
-                    <form action="" class="aa-subscribe-form">
+                    <form method="post" action="" class="aa-subscribe-form">
                       <input type="email" name="" id="" placeholder="Enter your Email">
+{#                        {{ my_form }}#}
                       <input type="submit" value="Subscribe">
                     </form>
                   </div>
@@ -438,29 +452,42 @@
             </div>
           </footer>
           <!-- / footer -->
-          <!-- Login Modal -->
-          <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4>Login or Register</h4>
-                  <form class="aa-login-form" action="">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" placeholder="Username or email">
-                    <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button class="aa-browse-btn" type="submit">Login</button>
-                    <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                    <div class="aa-register-now">
-                      Don't have an account?<a href="{% url 'account' %}">Register now!</a>
-                    </div>
-                  </form>
-                </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div>
+
+{#          <!-- Login Modal -->#}
+{#          <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#            <div class="modal-dialog">#}
+{#              <div class="modal-content">#}
+{#                <div class="modal-body">#}
+{#                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>#}
+{#                    #}
+{#                  {% if user.is_authenticated %}#}
+{#                  <a href="{% url 'shop_auth_app:logout' %}" >Logout</a>                         #}
+{#                  {% else %}#}
+{#                        <li>{{ user }} <a href="{% url 'shop_auth_app:logout' %}" >Logout</a></li>#}
+{#                      {% endif %}#}
+{##}
+{##}
+{#                  <h4>Login or Register</h4>#}
+{#                  <form class="aa-login-form" method="post" action="{% url 'shop_auth_app:login' %}">#}
+{#                    {% csrf_token %}#}
+{#                    <label for="">Email address<span>*</span></label>#}
+{#                    {{ form.username }}#}
+{#                    <input type="text" placeholder="Username or email">#}
+{#                    <label for="">Password<span>*</span></label>#}
+{#                    <input type="password" placeholder="Password">#}
+{#                    {{ form.password }}#}
+{#                    <button class="aa-browse-btn" type="submit">Login</button>#}
+{#                    <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>#}
+{#                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>#}
+{#                    <div class="aa-register-now">#}
+{#                      Don't have an account?<a href="{% url 'account' %}">Register now!</a>#}
+{#                    </div>#}
+{#                  </form>#}
+{##}
+{#                </div>#}
+{#              </div><!-- /.modal-content -->#}
+{#            </div><!-- /.modal-dialog -->#}
+{#          </div>#}
 
 
         <!-- jQuery library -->

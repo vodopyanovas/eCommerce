@@ -51,18 +51,15 @@ class OptionsForm(forms.ModelForm):
         fields = '__all__'
 
 
-class SubscriberForm(forms.EmailField):
+class SubscriberForm(forms.ModelForm):
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Enter your Email'}))
+
     class Meta:
         model = Subscriber
-        fields = 'email'
+        fields = '__all__'
 
 
 class CountryForm(forms.ChoiceField):
     class Meta:
         model = Country
         fields = 'country_name'
-
-
-# class UserForm(forms.ModelForm):
-#     class Meta:
-#         model =

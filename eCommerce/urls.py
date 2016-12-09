@@ -14,15 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from shop_auth_app import urls as auth_urls
+from shop_auth_app.forms import CustomRegistrationForm
+
+from registration.backends.simple import urls as reg_urls
+from registration.backends.simple.views import RegistrationView
+
 
 from shop_app.views import \
     index, product_attributes, products,\
-    no_page, cart, checkout, wishlist, contact, product, product_detail, account
+    no_page, cart, checkout, wishlist, contact, product, product_detail, account  # subscribe
 
 
 urlpatterns = [
@@ -36,13 +42,26 @@ urlpatterns = [
     url(r'^product/', product, name='product'),
     url(r'^product-detail/', product_detail, name='product_detail'),
     url(r'^account/', account, name='account'),
+    # url(r'^subscribe/', subscribe, name='subscribe'),
+
+    url(r'^register/$',
+        RegistrationView.as_view(
+            form_class=CustomRegistrationForm, template_name='shop_auth_app/register.html'
+        ),
+        name='registration_register',
+        ),
+
+
+    url(r'^', include(auth_urls, namespace='shop_auth_app')),
+    url(r'^', include(reg_urls, namespace='shop_auth_app')),
 
 
     # url(r'^attributes/', product_attributes, name='attributes'),
     # url(r'^products/', products, name='products'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += staticfiles_urlpatterns()
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += staticfiles_urlpatterns()
 
 

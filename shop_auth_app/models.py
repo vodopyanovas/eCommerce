@@ -35,7 +35,7 @@ class MyUserManager(BaseUserManager):
 class MyUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
-        max_length=255,
+        max_length=150,
         unique=True,
     )
 

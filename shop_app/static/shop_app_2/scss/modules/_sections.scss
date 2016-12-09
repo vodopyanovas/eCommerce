@@ -2148,8 +2148,9 @@
 
 /*---- Login form ----*/
 
-.aa-login-form{
+.aa-login-form, #id_username{
 	input[type="text"],
+	input[type="email"],
 	input[type="password"]{
 		border: 1px solid #ccc;
 		font-size: 16px;
