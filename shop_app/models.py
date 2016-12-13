@@ -2,7 +2,7 @@ import os
 from django.db import models
 from datetime import date
 from django.utils import timezone
-from eCommerce.settings import MEDIA_ROOT
+from eCommerce.settings import MEDIA_ROOT, MEDIA_URL
 from django.contrib.contenttypes.models import ContentType
 from shop_auth_app.models import MyUser
 
@@ -118,13 +118,20 @@ class Product(models.Model):
 
 
 def upload_large_img(instance, filename):  # /shop_app/media/view-slider/large/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_large.jpg
-    return os.path.join(MEDIA_ROOT, 'view-slider', 'large', TODAY_PATH, str(instance.product), filename)
+    return os.path.join('view-slider', 'large', TODAY_PATH, str(instance.product), filename)
+
+# def upload_medium_img(instance, filename):  # /shop_app/media/view-slider/medium/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_medium.jpg
+    # return os.path.join(MEDIA_ROOT, 'view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
 
 def upload_medium_img(instance, filename):  # /shop_app/media/view-slider/medium/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_medium.jpg
-    return os.path.join(MEDIA_ROOT, 'view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
+    return os.path.join('view-slider', 'medium', TODAY_PATH, str(instance.product), filename)
+
 
 def upload_thubm_img(instance, filename):  # shop_app/media/view-slider/thumbnail/2016/12-01/Outwear/Woolrich/Arctic DF Melton Blue/woolrich-arctic_thumb.jpg
-    return os.path.join(MEDIA_ROOT, 'view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
+    return os.path.join('view-slider', 'thumbnail', TODAY_PATH, str(instance.product), filename)
+
+def upload_preview_img(instance, filename):
+    return os.path.join('preview', TODAY_PATH, str(instance.product), filename)
 
 
 class Image(models.Model):
@@ -132,6 +139,8 @@ class Image(models.Model):
     large = models.ImageField(upload_to=upload_large_img, blank=True, max_length=300)
     medium = models.ImageField(upload_to=upload_medium_img, blank=True, max_length=300)
     thumbnail = models.ImageField(upload_to=upload_thubm_img, blank=True, max_length=300)
+    preview = models.ImageField(upload_to=upload_preview_img, blank=True, max_length=300)
+
     alt = models.CharField(max_length=50)
     image_add_date = models.DateTimeField(default=timezone.now)
 
@@ -139,7 +148,7 @@ class Image(models.Model):
         verbose_name_plural = 'Images'
 
     def __str__(self):
-        return self.product
+        return str(self.product)
 
 
 class Country(models.Model):

@@ -40,8 +40,10 @@ urlpatterns = [
     url(r'^wishlist/', wishlist, name='wishlist'),
     url(r'^contact/', contact, name='contact'),
     url(r'^product/', product, name='product'),
+    url(r'^product-detail/(?P<product_id>\d+)$', product_detail, name='product_detail_id'),
     url(r'^product-detail/', product_detail, name='product_detail'),
     url(r'^account/', account, name='account'),
+    url(r'^product-detail/(?P<product_id>\d+)$', product_detail, name='product_detail_id'),
     # url(r'^subscribe/', subscribe, name='subscribe'),
 
     url(r'^register/$',

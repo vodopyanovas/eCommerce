@@ -106,7 +106,7 @@
                       {% if user.is_authenticated %}
                         <li> <a href="{% url 'shop_auth_app:logout' %}" >Logout</a></li>
                       {% else %}
-                        <li><a href="{% url 'shop_auth_app:login' %}" >Login</a></li>
+                        <li><a href="{% url 'shop_auth_app:login' %}?next={{request.path}}" >Login</a></li>
                       {% endif %}
                     </ul>
                   </div>

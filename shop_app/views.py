@@ -1,9 +1,10 @@
-from django.shortcuts import render, render_to_response
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, Http404
 
 from shop_app.forms import SubscriberForm
 from shop_auth_app.forms import CustomAuthenticationForm
-from shop_app.models import Product, ProductOptions, Country, Image
+from shop_app.models import Product, ProductOptions, Country, Image, Category
 from shop_app.cart import Cart
 from django.db import transaction
 
@@ -73,6 +74,7 @@ def cart(request):
     return HttpResponse(status=405)
 
 
+@login_required
 def checkout(request):
     if request.method == 'GET':
         country = Country.objects.order_by('country_name')
@@ -84,7 +86,7 @@ def checkout(request):
 
     return HttpResponse(status=405)
 
-
+@login_required()
 def wishlist(request):
     if request.method == 'GET':
         return render(request, 'shop_app_2/wishlist.html')
@@ -107,7 +109,15 @@ def contact(request):
 
 def product(request):
     if request.method == 'GET':
-        return render(request, 'shop_app_2/product.html')
+        all_products = Product.objects.all()
+        categories = Category.objects.all()
+        images = Image.objects.all()
+
+        return render(request, 'shop_app_2/product.html', {
+            'products': all_products,
+            'categories': categories,
+            'images': images,
+        })
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/product.html')
@@ -115,21 +125,26 @@ def product(request):
     return HttpResponse(status=405)
 
 
-def product_detail(request):
+def product_detail(request, product_id):
     if request.method == 'GET':
 
-        img = Image.objects.all().filter(product_id=3,).first()
+        get_product = get_object_or_404(Product, pk=product_id)
 
-        get_product = Product.objects.get(pk=3)
-        get_options = ProductOptions.objects.filter(product_id=3)
-        size = get_options.filter(option__option_group=2)
-        color = get_options.filter(option__option_group=1)
+        img = Image.objects.all().filter(product_id=product_id,).first()
+
+        # get_options = ProductOptions.objects.filter(product_id=product_id)
+        # size = get_options.filter(option__option_group=2)
+        # color = get_options.filter(option__option_group=1)
+        color = ProductOptions.objects.select_related('option__option_group').filter(option_group=1)
+        product_color = color.filter(product_id=product_id)
+        size = ProductOptions.objects.select_related('option__option_group').filter(option_group=2)
+        product_size = size.filter(product_id=product_id)
 
         return render(request, 'shop_app_2/product-detail.html', {
             'image': img,
             'product': get_product,
-            'sizes': size,
-            'colors': color,
+            'sizes': product_size,
+            'colors': product_color,
         })
 
     elif request.method == 'POST':
@@ -137,7 +152,7 @@ def product_detail(request):
 
     return HttpResponse(status=405)
 
-
+@login_required()
 def account(request):
     if request.method == 'GET':
         form = CustomAuthenticationForm()

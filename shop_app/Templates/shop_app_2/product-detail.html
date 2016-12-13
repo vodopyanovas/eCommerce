@@ -49,23 +49,23 @@
                             {% if image %}
                       <div class="simpleLens-container">
 
-{#                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ MEDIA_URL }}{{ img.large.url }}" class="simpleLens-lens-image">#}
-{#                            <img src="{{ MEDIA_URL }}{{ img.medium.url }}" class="simpleLens-big-image"></a>#}
+{#                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ img.large.url }}" class="simpleLens-lens-image">#}
+{#                            <img src="{{ img.medium.url }}" class="simpleLens-big-image"></a>#}
 {#                        </div>#}
 
-                      <div class="simpleLens-big-image-container"><a data-lens-image="{{ MEDIA_URL }}{{ image.large.url }}" class="simpleLens-lens-image">
-                            <img src="{{ MEDIA_URL }}{{ image.medium.url }}" class="simpleLens-big-image"></a>
+                      <div class="simpleLens-big-image-container"><a data-lens-image="{{ image.large.url }}" class="simpleLens-lens-image">
+                            <img src="{{ image.medium.url }}" class="simpleLens-big-image"></a>
                       </div>
 
                       </div>
 {#                      <div class="simpleLens-thumbnails-container">#}
-{#                          <a data-big-image="{{ MEDIA_URL }}{{ img.medium.url}}" data-lens-image="{{ MEDIA_URL }}{{ img.large.url }}" class="simpleLens-thumbnail-wrapper" href="#">#}
-{#                            <img src="{{ MEDIA_URL }}{{ img.thumbnail.url }}">#}
+{#                          <a data-big-image="{{ img.medium.url}}" data-lens-image="{{ img.large.url }}" class="simpleLens-thumbnail-wrapper" href="#">#}
+{#                            <img src="{{ img.thumbnail.url }}">#}
 {#                          </a>#}
 
                       <div class="simpleLens-thumbnails-container">
-                          <a data-big-image="{{ MEDIA_URL }}{{ image.medium.url}}" data-lens-image="{{ MEDIA_URL }}{{ image.large.url}}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ MEDIA_URL }}{{ image.thumbnail.url}}">
+                          <a data-big-image="{{ image.medium.url}}" data-lens-image="{{ image.large.url}}" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="{{ image.thumbnail.url}}">
                           </a>
 
 {#                          {% endfor %}#}
