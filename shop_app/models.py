@@ -181,7 +181,9 @@ class Cart(models.Model):
 
 
 class ItemManager(models.Manager):
+
     def get(self, *args, **kwargs):
+        print(kwargs['product'])
         if 'product' in kwargs:
             kwargs['content_type'] = ContentType.objects.get_for_model(type(kwargs['product']))
             kwargs['object_id'] = kwargs['product'].pk

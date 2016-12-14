@@ -43,6 +43,9 @@
              <form action="">
                <div class="table-responsive">
                   <table class="table">
+                   {% for item in cart %}
+                      {% for image in images %}
+                      {% if item.object_id == image.product_id %}
                     <thead>
                       <tr>
                         <th></th>
@@ -54,31 +57,20 @@
                       </tr>
                     </thead>
                     <tbody>
+
                       <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{% static 'shop_app_2/img/man/polo-shirt-1.png' %}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$250</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$250</td>
+                        <td><a class="remove" href="{% url 'remove_from_cart' item.object_id %}"><fa class="fa fa-close"></fa></a></td>
+                        <td><a href="{% url 'product_detail_id' item.object_id %}"><img src="{{ image.medium.url }}" alt="{{ image.alt }}"></a></td>
+                        <td><a class="aa-cart-title" href="{% url 'product_detail_id' item.object_id %}">{{ item.product }}</a></td>
+                        <td>${{ item.unit_price }}</td>
+                        <td><input class="aa-cart-quantity" type="number" value="{{ item.quantity }}"></td>
+                        <td>${{ item.total_price }}</td>
                       </tr>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{% static 'shop_app_2/img/man/polo-shirt-2.png' %}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$150</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$150</td>
-                      </tr>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{% static 'shop_app_2/img/man/polo-shirt-3.png' %}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$50</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$50</td>
-                      </tr>
-                      <tr>
+
+                      {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+
                         <td colspan="6" class="aa-cart-view-bottom">
                           <div class="aa-cart-coupon">
                             <input class="aa-coupon-code" type="text" placeholder="Coupon">
@@ -98,7 +90,7 @@
                  <tbody>
                    <tr>
                      <th>Subtotal</th>
-                     <td>$450</td>
+                     <td>$1000</td>
                    </tr>
                    <tr>
                      <th>Total</th>

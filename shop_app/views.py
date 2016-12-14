@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 
 from shop_app.forms import SubscriberForm
@@ -49,56 +49,44 @@ def index(request):
     return HttpResponse(status=405)
 
 
-def no_page(request):
-    if request.method == 'GET':
-        return render(request, 'shop_app_2/404.html')
-
-    elif request.method == 'POST':
-        return render(request, 'shop_app_2/404.html')
-
-    return HttpResponse(status=405)
-
-
-# def cart(request):
-#     if request.method == 'GET':
-#
-#         all_products = Product.objects.all().order_by('pk')
-#         images = Image.objects.all().order_by('product')
-#
-#         return render(request, 'shop_app_2/cart.html', {
-#             'products': all_products,
-#             'images': images,
-#         })
-#
-#     elif request.method == 'POST':
-#         return render(request, 'shop_app_2/cart.html')
-#
-#     return HttpResponse(status=405)
-
-
 def add_to_cart(request, product_id, quantity):
     product_cart = Product.objects.get(id=product_id)
     cart = Cart(request)
     cart.add(product_cart, product_cart.unit_price, quantity)
+    return HttpResponse("OK!")
+    # return redirect('shop_app_2/product.html')
 
 
 def remove_from_cart(request, product_id):
     product_cart = Product.objects.get(id=product_id)
     cart = Cart(request)
     cart.remove(product_cart)
+    return HttpResponse("Item {product_cart} removed!".format(product_cart=product_cart))
 
 
-def get_cart(request, cart_id):
-    items = Item.objects.all().filter(cart_id=cart_id)
-    return render_to_response('shop_app_2/cart.html', dict(cart=Cart(request)))
+def get_cart(request):
+    images = Image.objects.all()
+    cart = Cart(request)
+    count = cart.count()
+
+    return render(request, 'shop_app_2/cart.html', {
+        'cart': cart,
+        'images': images,
+        'count': count,
+    })
 
 
 @login_required
 def checkout(request):
     if request.method == 'GET':
         country = Country.objects.order_by('country_name')
+        cart = Cart(request)
 
-        return render(request, 'shop_app_2/checkout.html', {'country': country})
+
+        return render(request, 'shop_app_2/checkout.html', {
+            'country': country,
+            'cart': cart
+        })
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/checkout.html')
@@ -112,16 +100,6 @@ def wishlist(request):
 
     elif request.method == 'POST':
         return render(request, 'shop_app_2/wishlist.html')
-
-    return HttpResponse(status=405)
-
-
-def contact(request):
-    if request.method == 'GET':
-        return render(request, 'shop_app_2/contact.html')
-
-    elif request.method == 'POST':
-        return render(request, 'shop_app_2/contact.html')
 
     return HttpResponse(status=405)
 
@@ -182,19 +160,24 @@ def account(request):
     return HttpResponse(status=405)
 
 
-def add_to_cart(request, product_id, quantity):
-    product_cart = Product.objects.get(id=product_id)
-    cart = Cart(request)
-    cart.add(product, product_cart.unit_price, quantity)
+def contact(request):
+    if request.method == 'GET':
+        return render(request, 'shop_app_2/contact.html')
 
-def remove_from_cart(request, product_id):
-    product_cart = Product.objects.get(id=product_id)
-    cart = Cart(request)
-    cart.remove(product_cart)
+    elif request.method == 'POST':
+        return render(request, 'shop_app_2/contact.html')
 
-def get_cart(request):
-    return render_to_response('shop_app_2/cart.html', dict(cart=Cart(request)))
+    return HttpResponse(status=405)
 
+
+def no_page(request):
+    if request.method == 'GET':
+        return render(request, 'shop_app_2/404.html')
+
+    elif request.method == 'POST':
+        return render(request, 'shop_app_2/404.html')
+
+    return HttpResponse(status=405)
 
 # def subscribe(request):
 #     # if request.method == 'GET':
