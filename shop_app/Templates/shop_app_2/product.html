@@ -73,29 +73,33 @@
               <ul class="aa-product-catg">
 
                 {% for product in products %}
-{#                    {% for image in images %}#}
+                    {% for image in images %}
+                  {% if image.product_id == product.id %}
                 <!-- start single product item -->
                 <li >
                   <figure>
-{#                    {% if product.id == image.product_id %}#}
-                        <a class="aa-product-img" href="#"><img src="{{ image.thumbnail.url }}" alt="polo shirt img"></a>
-{#                    {% else %}#}
+{#                    {% if product.id == 3 %}#}
+                        <a class="aa-product-img" href="{% url 'product_detail_id' product_id=product.id %}"><img src="{{ image.medium.url }}" alt="polo shirt img"></a>
 
 {#                    {% endif %}#}
-                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+
+                    <a class="aa-add-card-btn" href="{% url 'add_to_cart' product_id=product.id quantity=1 %}?next={{request.path}}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="{% url 'product_detail_id' product_id=product.id %}">{{ product.product_name }}</a></h4>
                       <span class="aa-product-price">${{ product.unit_price }}</span>
                        <p class="aa-product-descrip">{{ product.product_description_short }}</p>
                     </figcaption>
                   </figure>
+
                   <div class="aa-product-hvr-content">
                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                   </div>
                 </li>
-{#                    {% endfor %}#}
+                      {% else %}
+                    {% endif %}
+                    {% endfor %}
                 {% endfor %}
 
 

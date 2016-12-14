@@ -26,16 +26,19 @@ from registration.backends.simple import urls as reg_urls
 from registration.backends.simple.views import RegistrationView
 
 
-from shop_app.views import \
-    index, product_attributes, products,\
-    no_page, cart, checkout, wishlist, contact, product, product_detail, account  # subscribe
-
+from shop_app.views import (
+    index, no_page, checkout, wishlist, contact,
+    product, product_detail, account,
+    get_cart, add_to_cart, remove_from_cart  # subscribe
+)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
     url(r'^error/', no_page, name='no_page'),
-    url(r'^cart/', cart, name='cart'),
+    url(r'^(?P<product_id>\d+)/(?P<quantity>\d+)$', add_to_cart, name='add_to_cart'),
+    url(r'^(?P<product_id>\d+)$', remove_from_cart, name='remove_from_cart'),
+    url(r'^cart/', get_cart, name='cart'),
     url(r'^checkout/', checkout, name='checkout'),
     url(r'^wishlist/', wishlist, name='wishlist'),
     url(r'^contact/', contact, name='contact'),
@@ -53,13 +56,8 @@ urlpatterns = [
         name='registration_register',
         ),
 
-
     url(r'^', include(auth_urls, namespace='shop_auth_app')),
     url(r'^', include(reg_urls, namespace='shop_auth_app')),
-
-
-    # url(r'^attributes/', product_attributes, name='attributes'),
-    # url(r'^products/', products, name='products'),
 ]
 
 if settings.DEBUG:
