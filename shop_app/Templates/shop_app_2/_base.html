@@ -140,34 +140,42 @@
                     <a class="aa-cart-link" href="{% url 'cart' %}">
                       <span class="fa fa-shopping-basket"></span>
                       <span class="aa-cart-title">SHOPPING CART</span>
-                      <span class="aa-cart-notify">{{ quantity }}</span>  <!-- TODO: вставить счётчик товаров в корзине -->
+                      <span class="aa-cart-notify">{{ quantity }}</span>
                     </a>
                     <div class="aa-cartbox-summary">
+
                       <ul>
-                        <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{% static 'shop_app_2/img/woman-small-2.jpg' %}" alt="img"></a>
+                      {% for item in items %}
+                        {% for image in images %}
+                          {% if item.object_id == image.product_id %}
+                        <li id="cart-item">
+                          <a class="aa-cartbox-img" href="#"><img src="{{ image.thumbnail.url }}" alt="img"></a>
                           <div class="aa-cartbox-info">
-                            <h4><a href="#">Product Name</a></h4>
-                            <p>1 x $250</p>
+                            <h4><a href="#">{{ item.product }}</a></h4>
+                            <p>{{ item.quantity }} x ${{ item.unit_price }}</p>
                           </div>
-                          <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                          <a class="aa-remove-product" id="item-del" href="javascript:" onclick='ajaxDel("{% url 'remove_from_cart' item.object_id %}")'><span class="fa fa-times"></span></a>
                         </li>
-                        <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{% static 'shop_app_2/img/woman-small-1.jpg' %}" alt="img"></a>
-                          <div class="aa-cartbox-info">
-                            <h4><a href="#">Product Name</a></h4>
-                            <p>1 x $250</p>
-                          </div>
-                          <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                        </li>
-                        <li>
-                          <span class="aa-cartbox-total-title">
-                            Total
-                          </span>
-                          <span class="aa-cartbox-total-price">
-                            $500
-                          </span>
-                        </li>
+
+{#                        <li>#}
+{#                          <a class="aa-cartbox-img" href="#"><img src="{% static 'shop_app_2/img/woman-small-1.jpg' %}" alt="img"></a>#}
+{#                          <div class="aa-cartbox-info">#}
+{#                            <h4><a href="#">Product Name</a></h4>#}
+{#                            <p>1 x $250</p>#}
+{#                          </div>#}
+{#                          <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                          <span class="aa-cartbox-total-title">#}
+{#                            Total#}
+{#                          </span>#}
+{#                          <span class="aa-cartbox-total-price">#}
+{#                            $500#}
+{#                          </span>#}
+{#                        </li>#}
+                          {% endif %}
+                      {% endfor %}
+                      {% endfor %}
                       </ul>
                       <a class="aa-cartbox-checkout aa-primary-btn" href="{% url 'checkout'%}">Checkout</a>
                     </div>

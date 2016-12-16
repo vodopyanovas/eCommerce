@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from shop_app.context_processors import item_counter
+from shop_app.context_processors import cart_item
 from shop_auth_app import urls as auth_urls
 from shop_auth_app.forms import CustomRegistrationForm
 from shop_auth_app.views import validate_username
@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^(?P<product_id>\d+)/(?P<quantity>\d+)$', add_to_cart, name='add_to_cart'),
     url(r'^(?P<product_id>\d+)$', remove_from_cart, name='remove_from_cart'),
     url(r'^cart/', get_cart, name='cart'),
-    url(r'^items-counter/', item_counter, name='counter'),
+    url(r'^items-counter/', cart_item, name='counter'),
 
     url(r'^checkout/', checkout, name='checkout'),
     url(r'^wishlist/', wishlist, name='wishlist'),
