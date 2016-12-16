@@ -41,6 +41,7 @@
     <![endif]-->
     </head>
     <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <!-- Start header section -->
         <header id="aa-header">
         <!-- start header top  -->
@@ -136,10 +137,10 @@
                   <!-- / logo  -->
                    <!-- cart box -->
                   <div class="aa-cartbox">
-                    <a class="aa-cart-link" href="#">
+                    <a class="aa-cart-link" href="{% url 'cart' %}">
                       <span class="fa fa-shopping-basket"></span>
                       <span class="aa-cart-title">SHOPPING CART</span>
-                      <span class="aa-cart-notify">2</span>  <!-- TODO: вставить счётчик товаров в корзине -->
+                      <span class="aa-cart-notify">{{ quantity }}</span>  <!-- TODO: вставить счётчик товаров в корзине -->
                     </a>
                     <div class="aa-cartbox-summary">
                       <ul>
@@ -337,6 +338,7 @@
         <!-- / menu -->
 
         {% block content %}
+            <script src="{% static 'shop_app_2/js/ajaxMagic.js' %}" type="text/javascript"></script>
         {% endblock %}
 
           <!-- Subscribe section -->
@@ -491,7 +493,8 @@
 
 
         <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{#        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
+{#        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>#}
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="{% static 'shop_app_2/js/bootstrap.js' %}"></script>
         <!-- SmartMenus jQuery plugin -->

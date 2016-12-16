@@ -23,6 +23,9 @@
   13. RELATED ITEM SLIDER (SLICK SLIDER)
   14. TOP SLIDER (SLICK SLIDER)
 
+  15. AJAX LOGIN VERIFICATION
+
+
   
 **/
 
@@ -368,7 +371,32 @@ jQuery(function($){
 		cssEase: 'linear'
     });
 
+    /* ----------------------------------------------------------- */
+    /*  15. AJAX LOGIN VERIFICATION
+    /* ----------------------------------------------------------- */
 
-    
+    $("#id_email").change(function () {
+        var email = $(this).val();
+        // console.log(email)
+
+        $.ajax({
+            url: '/validate_user/',
+            data : {
+                'email': email
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    $(".fa-check-circle-o").hide();
+                    $("#wrong-email").show();
+                    // alert("This email already exists");
+                }
+                else {
+                    $(".fa-check-circle-o").show();
+                }
+            }
+        });
+    });
+
 });
 

@@ -156,6 +156,10 @@ img {
   margin-right: 5px;
 }
 
+.product-id {
+  display: none;
+}
+
 .aa-filter-btn {  
   color: #fff;
   font-size: 15px;
@@ -455,6 +459,16 @@ img {
   z-index: 99;
   position: relative;
 }
+.fa-check-circle-o {
+  color: #3fc35f;
+  display: none;
+}
+
+#wrong-email {
+  color: red;
+  display: none;
+}
+
 #aa-header .aa-header-bottom .aa-cartbox .aa-cart-link .aa-cart-title {
   color: #555;
   display: block;

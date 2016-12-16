@@ -4,7 +4,7 @@
 {% block title %}Daily Shop | Cart Page{% endblock %}
 
    {% block content %}
-   
+   <script src="{% static 'shop_app_2/js/ajaxMagic.js' %}" type="text/javascript"></script>
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
@@ -43,9 +43,7 @@
              <form action="">
                <div class="table-responsive">
                   <table class="table">
-                   {% for item in cart %}
-                      {% for image in images %}
-                      {% if item.object_id == image.product_id %}
+
                     <thead>
                       <tr>
                         <th></th>
@@ -57,9 +55,13 @@
                       </tr>
                     </thead>
                     <tbody>
+                    {% for item in cart %}
+                      {% for image in images %}
+                      {% if item.object_id == image.product_id %}
 
-                      <tr>
-                        <td><a class="remove" href="{% url 'remove_from_cart' item.object_id %}"><fa class="fa fa-close"></fa></a></td>
+                      <tr id="cart-item">
+{#                        <td><a class="remove" href="{% url 'remove_from_cart' item.object_id %}"><fa class="fa fa-close"></fa></a></td>                          #}
+                        <td><a class="remove" id="item-del" href="javascript:" onclick='ajaxDel("{% url 'remove_from_cart' item.object_id %}")'><fa class="fa fa-close"></fa></a></td>
                         <td><a href="{% url 'product_detail_id' item.object_id %}"><img src="{{ image.medium.url }}" alt="{{ image.alt }}"></a></td>
                         <td><a class="aa-cart-title" href="{% url 'product_detail_id' item.object_id %}">{{ item.product }}</a></td>
                         <td>${{ item.unit_price }}</td>

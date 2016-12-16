@@ -13,6 +13,7 @@ from django.db import transaction
 def index(request):
     if request.method == 'GET':
 
+
         latest_products = Product.objects.all().order_by('product_add_date')
 
         return render(request, 'shop_app_2/index.html', {
@@ -53,7 +54,7 @@ def add_to_cart(request, product_id, quantity):
     product_cart = Product.objects.get(id=product_id)
     cart = Cart(request)
     cart.add(product_cart, product_cart.unit_price, quantity)
-    return HttpResponse("OK!")
+    return HttpResponse("Item {product_cart} added to cart".format(product_cart=product_cart))
     # return redirect('shop_app_2/product.html')
 
 
@@ -67,12 +68,10 @@ def remove_from_cart(request, product_id):
 def get_cart(request):
     images = Image.objects.all()
     cart = Cart(request)
-    count = cart.count()
 
     return render(request, 'shop_app_2/cart.html', {
         'cart': cart,
         'images': images,
-        'count': count,
     })
 
 
@@ -81,7 +80,6 @@ def checkout(request):
     if request.method == 'GET':
         country = Country.objects.order_by('country_name')
         cart = Cart(request)
-
 
         return render(request, 'shop_app_2/checkout.html', {
             'country': country,
@@ -178,6 +176,7 @@ def no_page(request):
         return render(request, 'shop_app_2/404.html')
 
     return HttpResponse(status=405)
+
 
 # def subscribe(request):
 #     # if request.method == 'GET':

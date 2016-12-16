@@ -16,8 +16,10 @@
                  <form method="POST" action="{% url 'registration_register' %}" class="aa-login-form">
                      {% csrf_token %}
                     <label for="">Email address<span>*</span></label>
+                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                     <i class="fa fa-times" id="wrong-email" aria-hidden="true"></i>
                     {{ form.email }}
-{#                     {{ email }}#}
+
 {#                    <input type="text" placeholder="Email">#}
                     <label for="">Password<span>*</span></label>
                      {{ form.password1 }}
