@@ -1,7 +1,7 @@
 {% extends "shop_app_2/_base.html" %}
 {% load static %}
 
-{% block title %}Daily Shop | Product Detail{% endblock %}
+{% block title %}BestShop | Product Detail{% endblock %}
 
    {% block content %}
     <!-- wpf loader Two -->
@@ -101,16 +101,16 @@
                         {% endfor %}
                     </div>
                     <h4>Color</h4>
+
                     <div class="aa-color-tag">
-                        {% for color in colors %}
+                    {% for color in colors %}
                       <a href="#" class="aa-color-{{color.option}}"></a>
 
-{#                      <a href="#" class="aa-color-pink"></a>#}
-{#                      <a href="#" class="aa-color-black"></a>#}
 {#                      <a href="#" class="aa-color-white"></a>#}
-                        {% endfor %}
-{#                        <a href="#" class="aa-color-orange"></a>#}
+
+                    {% endfor %}
                     </div>
+
 
                     <div class="aa-prod-quantity">
                       <form action="">

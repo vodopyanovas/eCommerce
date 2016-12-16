@@ -201,12 +201,10 @@
                   <li><a href="{% url 'index' %}">Home</a></li>
                   <li><a href="#">Brands <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Brand1</a></li>
-                      <li><a href="#">Brand2</a></li>
-                      <li><a href="#">Brand3</a></li>
-                      <li><a href="#">Brand4</a></li>
-                      <li><a href="#">Brand5</a></li>
-                      <li><a href="#">Brand6</a></li>
+                      {% for brand in brands %}
+                      <li><a href="#">{{ brand }}</a></li>
+
+                      {% endfor %}
                       <li><a href="#">And more.. <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li><a href="#">More</a></li>
@@ -294,29 +292,12 @@
                       </li>
                     </ul>
                   </li>
-                  <li><a href="#">Sports</a></li>
-                 <li><a href="#">Digital <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Camera</a></li>
-                      <li><a href="#">Mobile</a></li>
-                      <li><a href="#">Tablet</a></li>
-                      <li><a href="#">Laptop</a></li>
-                      <li><a href="#">Accesories</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Furniture</a></li>
-{#                  <li><a href="blog-archive.html">Blog <span class="caret"></span></a>#}
-{#                    <ul class="dropdown-menu">#}
-{#                      <li><a href="blog-archive.html">Blog Style 1</a></li>#}
-{#                      <li><a href="blog-archive-2.html">Blog Style 2</a></li>#}
-{#                      <li><a href="blog-single.html">Blog Single</a></li>#}
-{#                    </ul>#}
-{#                  </li>#}
+
                   <li><a href="{% url 'contact' %}">Contact</a></li>
                   <li><a href="#">Pages <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="{% url 'product' %}">Shop Page</a></li>
-                      <li><a href="{% url 'product_detail' %}">Shop Single</a></li>
+                      <li><a href="{% url 'product_detail' %}/3">Shop Single</a></li>
                       <li><a href="{% url 'no_page' %}">404 Page</a></li>
                     </ul>
                   </li>

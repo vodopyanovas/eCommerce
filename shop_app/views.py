@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 
 from shop_app.forms import SubscriberForm
 from shop_auth_app.forms import CustomAuthenticationForm
-from shop_app.models import Product, ProductOptions, Country, Image, Category, Item
+from shop_app.models import Product, ProductOptions, Country, Image, Category, Item, Brand
 from shop_app.cart import Cart
 from django.db import transaction
 
@@ -13,12 +13,13 @@ from django.db import transaction
 def index(request):
     if request.method == 'GET':
 
-
-        latest_products = Product.objects.all().order_by('product_add_date')
+        brands = Brand.objects.all().order_by('brand_name')
+        latest_products = Product.objects.all().order_by('-product_add_date')
 
         return render(request, 'shop_app_2/index.html', {
             'latest': latest_products,
             'form': CustomAuthenticationForm,
+            'brands': brands,
         })
 
     elif request.method == 'POST':
